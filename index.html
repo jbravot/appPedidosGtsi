@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+ 	<head>
+  		<meta charset="utf-8">
+	 	<!-- Basic Page Needs -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="description" content="Aplicacion Pedidos">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="apple-touch-icon" sizes="57x57" href="img/favicons/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="img/favicons/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="img/favicons/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="img/favicons/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="img/favicons/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="img/favicons/apple-touch-icon-120x120.png">
+		<link rel="icon" type="image/png" href="img/favicons/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="img/favicons/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="img/favicons/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="img/favicons/manifest.json">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+  		<title>Pedidos</title>
+
+		<!-- jQuery Mobile Setup -->
+		<script src="lib/jquery-mobile/jquery-2.1.3.min.js"></script>
+		<script src="lib/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
+		<link rel="stylesheet" href="lib/jquery-mobile/jquery.mobile-1.4.5.min.css"	/>
+
+		<!-- CSS  -->
+	  	<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css" />
+	  	<link rel="stylesheet" href="lib/nativedroid2/vendor/waves/waves.min.css" />
+	  	<link rel="stylesheet" href="lib/nativedroid2/vendor/wow/animate.css" />
+		<link rel="stylesheet" href="lib/nativedroid2/css/nativedroid2.css" />
+		<link rel="stylesheet" href="lib/nativedroid2/css/nativedroid2.color.indigo.css" />
+
+		<link rel="stylesheet" href="css/main.css?v=1.0" />
+		
+		<!-- JS  -->
+		<script src="phonegap.js"></script>
+		<script src="lib/fastclick.min.js"></script>
+		<script src="lib/nativedroid2/js/nativedroid2.js"></script>
+		<script src="lib/nativedroid2/nd2settings.js"></script>
+
+		<script src="js/modelos/basededatos.js?v=1.00000" charset="utf-8"></script>
+		<script src="js/modelos/cliente.js?v=1.000000" charset="utf-8"></script>
+		<script src="js/modelos/producto.js?v=1.0000000" charset="utf-8"></script>
+		<script src="js/modelos/pedido.js?v=1.00000000" charset="utf-8"></script>
+
+		<script src="js/controladores/toolsCtr.js?v=1.00" charset="utf-8"></script>
+		<script src="js/controladores/clienteCtr.js?v=1.00000000" charset="utf-8"></script>
+		<script src="js/controladores/productoCtr.js?v=1.000000000" charset="utf-8"></script>
+		<script src="js/controladores/pedidoCtr.js?v=1.0000000000" charset="utf-8"></script>
+		<script src="js/app.js?v=1.000000" charset="utf-8"></script>
+
+  	</head>
+  	<body onLoad="init();">
+
+  		<!-- PAGINA INICIO -->
+  		<div id="home" data-role="page">
+			<div data-role="panel" id="leftpanel" data-display="overlay" data-position-fixed="true" >
+
+				<div class='nd2-sidepanel-profile wow fadeIn'>
+					<img class='profile-background' src="//lorempixel.com/400/200/abstract/2/" />
+					<div class="row">
+						<div class='col-xs-12'>
+							<div class='box profile-text'>
+								<strong>Pedidos</strong>
+								<span class='subline'>GTSI</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<ul data-role="listview" data-inset="false" data-icon="false">
+					<li><a href="#home" data-ajax='false' data-icon="false" class="ir_pedidos">Pedido</a></li>
+					<li><a href="#clientes" data-ajax='false' data-icon="false" class="ir_clientes">Clientes</a></li>
+					<li><a href="#productos" data-ajax='false' data-icon="false" class="ir_productos">Productos</a></li>
+				</ul>
+			</div>
+
+			<div data-role="header" data-position="fixed" class="wow fadeIn" data-wow-delay="0.2s">
+				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn waves-effect waves-button" data-wow-delay='0.8s'>
+					<i class="zmdi zmdi-menu"></i>
+				</a>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'>Pedido de hoy</h1>
+				<a href="#borrar-pedido" class="ui-btn ui-btn-right wow fadeIn waves-effect waves-button" data-wow-delay='1.2s'>
+					<i class="zmdi zmdi-delete"></i>
+				</a>
+			</div>
+
+			<div role="main" class="ui-content" data-inset="false">
+				<ol id="pedidos-lista" data-role="listview" data-icon="false" data-count-theme="b" data-autodividers="false">
+				</ol>
+				<hr>
+				<ul data-role="listview" data-icon="false" data-count-theme="b" data-autodividers="false">
+					<li><b>TOTAL</b> <span id="ped-total" class="ui-li-count">$ 12</span></li>
+				</ul>
+
+				<a href="#" id="nuevo-pedido-btn" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-raised bnt-float clr-primary waves-effect waves-button waves-effect waves-button"><i class="zmdi zmdi-plus zmd-2x"></i></a>
+			</div>
+		</div>
+
+		<!-- PAGINA NUEVO PEDIDO -->
+  		<div id="nuevo-pedido" data-role="page">
+			<div data-role="header" data-position="fixed" class="wow fadeIn" data-wow-delay="0.2s">
+				<a href="#home" class="ui-btn ui-btn-left wow fadeIn ir_pedidos">
+					<i class="zmdi zmdi-chevron-left zmd-fw"></i>
+				</a>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'>Nuevo Pedido</h1>
+			</div>
+
+			<div role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+				<div class="nd2-card">
+					<div class="card-title has-avatar">
+						<h3 class="card-primary-title">
+							<i class="zmdi zmdi-shopping-cart-add"></i>
+							Pedido
+						</h3>
+					</div>
+					<div class="card-supporting-text has-action">
+						<div class="row">
+							<div class="col-xs-12">
+						        <div class="box">
+						        <label>Cliente</label>
+			                        <select name="ped-cliente" id="ped-cliente" data-mini="true" data-clear-btn="true">
+								    </select>
+						        </div>
+						    </div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+						        <div class="box">
+						        <label>Producto</label>
+			                        <select name="ped-producto" id="ped-producto" data-mini="true" data-clear-btn="true">
+								    </select>
+						        </div>
+						    </div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<a href="#home" class="ui-btn ui-btn-raised clr-warning ir_pedidos">Cancelar</a>
+					</div>
+					<div class="col-xs-6">
+						<a href="#" id="guardar-ped-btn" class="ui-btn ui-btn-raised clr-primary">Guardar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- PAGINA CLIENTES -->
+  		<div id="clientes" data-role="page">
+			<div data-role="panel" id="cli-leftpanel" data-display="overlay" data-position-fixed="true" >
+
+				<div class='nd2-sidepanel-profile wow fadeIn'>
+					<img class='profile-background' src="//lorempixel.com/400/200/abstract/2/" />
+					<div class="row">
+						<div class='col-xs-12'>
+							<div class='box profile-text'>
+								<strong>Pedidos</strong>
+								<span class='subline'>GTSI</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<ul data-role="listview" data-inset="false" data-icon="false">
+					<li><a href="#home" data-ajax='false' data-icon="false" class="ir_pedidos">Pedido</a></li>
+					<li><a href="#clientes" data-ajax='false' data-icon="false" class="ir_clientes">Clientes</a></li>
+					<li><a href="#productos" data-ajax='false' data-icon="false" class="ir_productos">Productos</a></li>
+				</ul>
+			</div>
+
+			<div data-role="header" data-position="fixed" class="wow fadeIn" data-wow-delay="0.2s">
+				<a href="#cli-leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'>
+					<i class="zmdi zmdi-menu"></i>
+				</a>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'>Clientes</h1>
+			</div>
+
+			<div role="main" class="ui-content" data-inset="false">
+				<form class="ui-filterable">
+				    <input id="filter-clientes" placeholder="Buscar por nombre..."/>
+				</form>
+				<ul id="clientes-lista" data-role="listview" data-input="#filter-clientes" data-filter="true" data-icon="false" data-autodividers="true">			
+				</ul>
+
+				<a href="#nuevo-cliente" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-raised bnt-float clr-primary waves-effect waves-button waves-effect waves-button"><i class="zmdi zmdi-plus zmd-2x"></i></a>
+			</div>
+		</div>
+
+		<!-- PAGINA NUEVO CLIENTE -->
+  		<div id="nuevo-cliente" data-role="page">
+			<div data-role="header" data-position="fixed" class="wow fadeIn" data-wow-delay="0.2s">
+				<a href="#clientes" class="ui-btn ui-btn-left wow fadeIn ir_clientes" >
+					<i class="zmdi zmdi-chevron-left zmd-fw"></i>
+				</a>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'>Nuevo Cliente</h1>
+			</div>
+
+			<div role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+				<div class="nd2-card">
+					<div class="card-title has-avatar">
+						<h3 class="card-primary-title">
+							<i class="zmdi zmdi-account-circle zmd-fw"></i>
+							Cliente
+						</h3>
+					</div>
+					<div class="card-supporting-text has-action">
+						<div class="row">
+							<div class="col-xs-12">
+						        <div class="box">
+						        <label>Nombre Completo</label>
+			                        <input type="text" name="user-nombre" id="user-nombre" class="alphaonly" value="" data-clear-btn="true">
+						        </div>
+						    </div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<a href="#clientes" class="ui-btn ui-btn-raised clr-warning ir_clientes">Cancelar</a>
+					</div>
+					<div class="col-xs-6">
+						<a href="#" id="guardar-cliente-btn" class="ui-btn ui-btn-raised clr-primary">Guardar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- PAGINA PRODUCTOS -->
+  		<div id="productos" data-role="page">
+			<div data-role="panel" id="prod-leftpanel" data-display="overlay" data-position-fixed="true" >
+
+				<div class='nd2-sidepanel-profile wow fadeIn'>
+					<img class='profile-background' src="//lorempixel.com/400/200/abstract/2/" />
+					<div class="row">
+						<div class='col-xs-12'>
+							<div class='box profile-text'>
+								<strong>Pedidos</strong>
+								<span class='subline'>GTSI</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<ul data-role="listview" data-inset="false" data-icon="false">
+					<li><a href="#home" data-ajax='false' data-icon="false" class="ir_pedidos">Pedido</a></li>
+					<li><a href="#clientes" data-ajax='false' data-icon="false" class="ir_clientes">Clientes</a></li>
+					<li><a href="#productos" data-ajax='false' data-icon="false" class="ir_productos">Productos</a></li>
+				</ul>
+			</div>
+
+			<div data-role="header" data-position="fixed" class="wow fadeIn" data-wow-delay="0.2s">
+				<a href="#prod-leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'>
+					<i class="zmdi zmdi-menu"></i>
+				</a>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'>Produtos</h1>
+			</div>
+
+			<div role="main" class="ui-content" data-inset="false">
+				<form class="ui-filterable">
+				    <input id="filter-pacientes" placeholder="Buscar por nombre..."/>
+				</form>
+				<ul id="productos-lista" data-role="listview" data-input="#filter-pacientes" data-filter="true" data-icon="false" data-autodividers="true">			
+				</ul>
+
+				<a href="#nuevo-producto" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-raised bnt-float clr-primary waves-effect waves-button waves-effect waves-button"><i class="zmdi zmdi-plus zmd-2x"></i></a>
+			</div>
+		</div>
+
+		<!-- PAGINA NUEVO PRODUCTO -->
+  		<div id="nuevo-producto" data-role="page">
+			<div data-role="header" data-position="fixed" class="wow fadeIn" data-wow-delay="0.2s">
+				<a href="#productos" class="ui-btn ui-btn-left wow fadeIn ir_productos">
+					<i class="zmdi zmdi-chevron-left zmd-fw"></i>
+				</a>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'>Nuevo Producto</h1>
+			</div>
+
+			<div role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+				<div class="nd2-card">
+					<div class="card-title has-avatar">
+						<h3 class="card-primary-title">
+							<i class="zmdi zmdi-assignment zmd-fw"></i>
+							Producto
+						</h3>
+					</div>
+					<div class="card-supporting-text has-action">
+						<div class="row">
+							<div class="col-xs-12">
+						        <div class="box">
+						        <label>Nombre</label>
+			                        <input type="text" name="prod-nombre" id="prod-nombre" class="alphaonly" value="" data-clear-btn="true">
+						        </div>
+						    </div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+						        <div class="box">
+						        <label>Precio [$]</label>
+			                        <input type="number" name="prod-precio" id="prod-precio" class="alphaonly" value="" data-clear-btn="true">
+						        </div>
+						    </div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<a href="#productos" class="ui-btn ui-btn-raised clr-warning ir_productos">Cancelar</a>
+					</div>
+					<div class="col-xs-6">
+						<a href="#" id="guardar-prod-btn" class="ui-btn ui-btn-raised clr-primary">Guardar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+  	</body>
+</html>

@@ -1,0 +1,56 @@
+.ui-listview .ui-li-divider{
+    background-color: #FAFAF5;
+}
+.ui-listview .ui-li-has-thumb a{
+    border-bottom: 1px solid #CCC !important;
+}
+
+.ui-radio{ float: left; }
+
+.nd2-card .card-supporting-text.has-action {
+    padding: 0px 16px 16px 16px;
+}
+
+.col-xs-2, .col-xs-3{ position: relative;}
+.bnt-float{
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    cursor: pointer;
+}
+
+.thumbnail-circular{
+    border-radius: 50%;
+    width: 100%;
+    border: 1px solid #CCC;
+}
+.nd2-chart {
+    margin: auto;
+}
+.ui-page-theme-a .ui-btn.imc-bajo {
+    background-color: #2DD3FF !important;
+}
+.ui-page-theme-a .ui-btn.imc-normal {
+    background-color: #4CAF50 !important;
+}
+.ui-page-theme-a .ui-btn.imc-alto {
+    background-color: #FBCF00 !important;
+}
+.ui-page-theme-a .ui-btn.imc-muy-alto {
+    background-color: #FF7E00 !important;
+}
+.nd2-card {
+    background: #fff;
+}
+.ui-page-theme-a{
+    background: #f3f3f3;
+}
+ol.ui-listview>li h1:first-child~*, ol.ui-listview>li h2:first-child~*, ol.ui-listview>li h3:first-child~*, ol.ui-listview>li h4:first-child~*, ol.ui-listview>li h5:first-child~*, ol.ui-listview>li h6:first-child~*, ol.ui-listview>li p:first-child~*, ol.ui-listview>li img:first-child+*~* {
+    text-indent: 1.04em;
+}
+.ui-filterable input{
+    background-color: #f3f3f3;
+}
+.ui-content .ui-listview {
+    background: #fff;
+}
